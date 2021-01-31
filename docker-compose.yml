@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASS}
+  web:
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    command: python3 manage.py runserver 0.0.0.0:8000
+    environment:
+      DB_PASS: ${DB_PASS}
+    volumes:
+      - ./app:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
