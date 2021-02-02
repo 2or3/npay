@@ -15,7 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url, include
+
+import os
+
+app_list = os.getenv('APP_LIST', "").split(",")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+if 'coin' in app_list:
+    from coin.urls import router as coin_router
+    urlpatterns.extend([url(r'^api/', include(coin_router.urls))])
+
