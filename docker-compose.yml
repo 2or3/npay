@@ -5,17 +5,24 @@ services:
     image: postgres
     environment:
       POSTGRES_PASSWORD: ${DB_PASS}
-  web:
-    build:
-      context: .
-      dockerfile: ./app/Dockerfile
-    command: python3 manage.py runserver 0.0.0.0:8000
-    environment:
-      DB_PASS: ${DB_PASS}
+  all-web:
+    extends:
+      file: parent.yml
+      service: web
     volumes:
       - ./app:/code
     ports:
       - "8000:8000"
+    depends_on:
+      - db
+  coin-web:
+    extends:
+      file: parent.yml
+      service: web
+    volumes:
+      - ./app/coin:/code/coin
+    ports:
+      - "8001:8000"
     depends_on:
       - db
 

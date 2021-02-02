@@ -1,0 +1,14 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./app/config:/code/config
+      - ./app/manage.py:/code/manage.py
+      - ./app/requirements.txt:/code/requirements.txt
+    environment:
+      DB_PASS: ${DB_PASS}
+
