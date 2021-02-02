@@ -25,7 +25,7 @@ $ docker-compose up
 - Run db migration
 
 ```
-$ docker-compose run web python3 manage.py migrate
+$ docker-compose run all-web python3 manage.py migrate
 ```
 
 ## Env
@@ -39,7 +39,7 @@ $ docker-compose run web python3 manage.py migrate
 - command
 
 ```
-$ docker-compose run web python3 manage.py startapp [application name]
+$ docker-compose run all-web python3 manage.py startapp [application name]
 ```
 
 ### docker-compose
