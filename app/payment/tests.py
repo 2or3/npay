@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from .models import Payment
+from .models import Transactions
 
 # Create your tests here.
 class PaymentModelTests(TestCase):
