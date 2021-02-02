@@ -13,6 +13,8 @@ services:
       - ./app:/code
     ports:
       - "8000:8000"
+    environment:
+      APP_LIST: "coin,payment"
     depends_on:
       - db
   coin-web:
@@ -23,6 +25,8 @@ services:
       - ./app/coin:/code/coin
     ports:
       - "8001:8000"
+    environment:
+      APP_LIST: "coin"
     depends_on:
       - db
 

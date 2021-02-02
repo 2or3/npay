@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+app_list = os.getenv('APP_LIST', "").split(",")
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'coin',
 ]
+INSTALLED_APPS.extend(app_list)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
