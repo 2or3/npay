@@ -5,7 +5,7 @@ services:
     image: postgres
     environment:
       POSTGRES_PASSWORD: ${DB_PASS}
-  all-web:
+  web-all:
     extends:
       file: parent.yml
       service: web
@@ -27,6 +27,16 @@ services:
       - "8001:8000"
     environment:
       APP_LIST: "coin"
+    depends_on:
+      - db
+  coin-web:
+    extends:
+      file: parent.yml
+      service: web
+    volumes:
+      - ./app/coin:/code/coin
+    ports:
+      - "8001:8000"
     depends_on:
       - db
 
