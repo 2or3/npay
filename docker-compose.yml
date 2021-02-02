@@ -29,14 +29,15 @@ services:
       APP_LIST: "coin"
     depends_on:
       - db
-  coin-web:
+  payment-web:
     extends:
       file: parent.yml
       service: web
-    volumes:
-      - ./app/coin:/code/coin
+      - ./app/payment:/code/payment
     ports:
-      - "8001:8000"
+      - "8002:8000"
+    environment:
+      APP_LIST: "payment"
     depends_on:
       - db
 
