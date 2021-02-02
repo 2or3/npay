@@ -3,9 +3,9 @@ from django.db import models
 # Create your models here.
 class Coin(models.Model):
     user_id = models.IntegerField()
-    amount = models.IntegerField()
+    amount = models.PositiveIntegerField()
 
-class CoinTransactions(models.Model):
+class Transactions(models.Model):
     coin_id = models.ForeignKey(Coin, on_delete=models.CASCADE)
     user_id = models.IntegerField()
     charge = models.IntegerField()
