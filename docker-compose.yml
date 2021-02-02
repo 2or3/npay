@@ -33,6 +33,7 @@ services:
     extends:
       file: parent.yml
       service: web
+    volumes:
       - ./app/payment:/code/payment
     ports:
       - "8002:8000"
