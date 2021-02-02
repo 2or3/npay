@@ -5,7 +5,7 @@ services:
     image: postgres
     environment:
       POSTGRES_PASSWORD: ${DB_PASS}
-  web-all:
+  all-web:
     extends:
       file: parent.yml
       service: web
