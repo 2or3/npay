@@ -12,7 +12,7 @@
 1. Build docker image by docker-compose
 
     ``
-     docker-compose build
+    docker-compose build
     ``
 
 ## Run
