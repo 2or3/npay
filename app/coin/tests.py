@@ -32,10 +32,14 @@ class CoinModelTests(TestCase):
         """
         calculate() with exceeded minus amount returns False if negative value exceeded coin amount.
         """
-        return
+        add_coin_value = -1000
+        after_amount = Coin.objects.calculate(self.user_id, add_coin_value)
+        self.assertFalse(after_amount)
 
     def test_get_amount_with_user_id(self):
         """
-        get_amount() for specific user returns valid amount if succeeded coin amount get.
+        get_amount() for specific user returns valid amount if succeeded coin amount get. Please see fixture1 for default data.
         """
-        return
+        expected_amount = 100
+        amount = Coin.objects.get_amount(self.user_id)
+        self.assertEqual(expected_amount, amount)
