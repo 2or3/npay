@@ -31,3 +31,6 @@ if 'coin' in app_list:
     from coin.urls import router as coin_router
     urlpatterns.extend([url(r'^api/', include(coin_router.urls))])
 
+if 'payment' in app_list:
+    from payment.urls import router as payment_router
+    urlpatterns.extend([url(r'^api/', include(payment_router.urls))])

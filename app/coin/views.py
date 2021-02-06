@@ -10,4 +10,3 @@ from .serializer import CoinSerializer
 class CoinViewSet(viewsets.ModelViewSet):
     queryset = Coin.objects.all()
     serializer_class = CoinSerializer
-
