@@ -2,7 +2,7 @@ import django_filters
 from rest_framework import viewsets, filters
 
 from .models import Transactions
-from .serializer import PaymentSerializer
+from .serializers import PaymentSerializer
 
 
 class PaymentViewSet(viewsets.ModelViewSet):
