@@ -4,7 +4,7 @@ import django_filters
 from rest_framework import viewsets, filters
 
 from .models import Coin
-from .serializer import CoinSerializer
+from .serializers import CoinSerializer
 
 
 class CoinViewSet(viewsets.ModelViewSet):
