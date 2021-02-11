@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -21,3 +21,7 @@ def coin_me(request, user_id):
         coin = Coin.objects.get_amount(user_id=user_id)
         serializer = CoinSerializer(coin)
         return Response(serializer.data)
+
+class CoinViewSet(viewsets.ModelViewSet):
+    queryset = Coin.objects.all()
+    serializer_class = CoinSerializer
