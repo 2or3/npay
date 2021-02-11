@@ -8,6 +8,7 @@ class CoinModelTests(TestCase):
 
     def setUp(self):
         self.user_id = "1234567890"
+        self.not_exist_user_id = "1111111111"
         return
 
     def test_calculate_with_positive_amount(self):
@@ -43,3 +44,10 @@ class CoinModelTests(TestCase):
         expected_amount = 100
         amount = Coin.objects.get_amount(self.user_id)
         self.assertEqual(expected_amount, amount)
+
+    def test_get_amount_with_not_exist_user_id(self):
+        """
+        get_amount() returns false if no exist user_id.
+        """
+        amount = Coin.objects.get_amount(self.not_exist_user_id)
+        self.assertEqual(False, amount)
