@@ -16,10 +16,17 @@ class CoinManager(models.Manager):
         except IntegrityError as e:
             return False
 
+        if not result:
+            return False
+
         return result[0].amount
 
     def get_amount(self, user_id):
         result = Coin.objects.get_queryset().filter(user_id=user_id)
+        
+        if not result:
+            return False
+
         return result[0].amount
 
 class Coin(models.Model):
