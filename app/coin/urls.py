@@ -1,8 +1,12 @@
 # coding: utf-8
 
-from rest_framework import routers
-from .views import CoinViewSet
+from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
+from coin import views
 
 
-router = routers.DefaultRouter()
-router.register(r'coins', CoinViewSet)
+urlpatterns = [
+    path('<int:user_id>/coins', views.coin_me),
+]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

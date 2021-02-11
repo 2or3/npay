@@ -2,7 +2,7 @@
 
 from rest_framework import serializers
 
-from .models import Coin
+from coin.models import Coin
 
 
 class CoinSerializer(serializers.ModelSerializer):
