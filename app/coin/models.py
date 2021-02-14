@@ -32,7 +32,7 @@ class CoinManager(models.Manager):
 class Coin(models.Model):
     objects = CoinManager()
 
-    user_id = models.IntegerField()
+    user_id = models.IntegerField(unique=True)
     amount = models.PositiveIntegerField()
 
 class Transactions(models.Model):
