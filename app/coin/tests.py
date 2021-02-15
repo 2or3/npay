@@ -37,6 +37,11 @@ class CoinModelTests(TestCase):
         after_amount = Coin.objects.calculate(self.user_id, add_coin_value)
         self.assertFalse(after_amount)
 
+    def test_calculate_with_not_exist_user_id(self):
+        """
+        calculate() returns False if  no exist user_id.
+        """
+
     def test_get_amount_with_user_id(self):
         """
         get_amount() for specific user returns valid amount if succeeded coin amount get. Please see fixture1 for default data.
