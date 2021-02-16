@@ -4,7 +4,7 @@ from .models import Transactions
 
 # Create your tests here.
 class PaymentModelTests(TestCase):
-    fixtures = ['fixture1']
+    fixtures = ["fixture1"]
 
     def setUp(self):
         self.user_id = "1234567890"

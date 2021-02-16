@@ -8,10 +8,10 @@ from coin.views import CoinViewSet
 
 
 router = routers.DefaultRouter()
-router.register(r'coins', CoinViewSet)
+router.register(r"coins", CoinViewSet)
 
 urlpatterns = [
-    path('<int:user_id>/coin', views.coin_me),
+    path("<int:user_id>/coin", views.coin_me),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

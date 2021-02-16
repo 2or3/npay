@@ -7,6 +7,5 @@ from coin.models import Coin
 
 class CoinSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Coin 
-        fields = ('user_id', 'amount')
-
+        model = Coin
+        fields = ("user_id", "amount")

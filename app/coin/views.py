@@ -9,7 +9,7 @@ from coin.models import Coin
 from coin.serializers import CoinSerializer
 
 
-@api_view(['GET', 'PUT'])
+@api_view(["GET", "PUT"])
 @parser_classes([JSONParser])
 def coin_me(request, user_id):
     """
@@ -20,8 +20,11 @@ def coin_me(request, user_id):
         return Response(coin_amount)
 
     elif request.method == "PUT":
-        coin = Coin.objects.calculate(user_id=user_id, value=request.data["value"])
+        coin = Coin.objects.calculate(
+            user_id=user_id, value=request.data["value"]
+        )
         return Response(coin)
+
 
 class CoinViewSet(viewsets.ModelViewSet):
     queryset = Coin.objects.all()

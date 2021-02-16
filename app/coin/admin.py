@@ -8,7 +8,7 @@ from .models import Coin, Transactions
 class Coin(admin.ModelAdmin):
     pass
 
+
 @admin.register(Transactions)
 class CoinTransaction(admin.ModelAdmin):
     pass
-

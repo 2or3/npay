@@ -20,18 +20,20 @@ from . import views
 
 import os
 
-app_list = os.getenv('APP_LIST', "").split(",")
+app_list = os.getenv("APP_LIST", "").split(",")
 
 urlpatterns = [
-    path('', views.api_redirect),
-    path('admin/', admin.site.urls),
+    path("", views.api_redirect),
+    path("admin/", admin.site.urls),
 ]
 
-if 'coin' in app_list:
+if "coin" in app_list:
     from coin.urls import router as coin_router
-    urlpatterns.extend([url(r'^api/', include(coin_router.urls))])
-    urlpatterns.extend([path('api/', include('coin.urls'))])
 
-if 'payment' in app_list:
+    urlpatterns.extend([url(r"^api/", include(coin_router.urls))])
+    urlpatterns.extend([path("api/", include("coin.urls"))])
+
+if "payment" in app_list:
     from payment.urls import router as payment_router
-    urlpatterns.extend([url(r'^api/', include(payment_router.urls))])
+
+    urlpatterns.extend([url(r"^api/", include(payment_router.urls))])
