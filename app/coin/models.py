@@ -5,6 +5,9 @@ class CoinManager(models.Manager):
     def calculate(self, user_id, value):
         try:
             result = Coin.objects.get_queryset().filter(user_id=user_id)
+            if len(result) == 0:
+                return False
+
             pre_amount = result[0].amount
 
             Transactions.objects.create(
