@@ -46,7 +46,8 @@ jobs:
         git config --local user.name "2or3"
     - name: push
       run: |
+        set +e
         git add .
         git commit -m"[Github action] formatting by black" -a
         git pull
-        git push origin main & exit 0
+        git push origin main
