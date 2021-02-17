@@ -48,6 +48,6 @@ jobs:
       run: |
         set +e
         git add .
-        git commit -m"[Github action] formatting by black" -a
+        git commit -m"[Github action] formatted by black" -a
         git pull
         git push origin main
