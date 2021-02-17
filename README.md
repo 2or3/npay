@@ -28,7 +28,7 @@ $ docker-compose up
 - Run db migration
 
 ```
-$ docker-compose run all-web python3 manage.py migrate
+$ docker-compose run coin-web pipenv run python manage.py migrate
 ```
 
 ## Env
@@ -42,7 +42,7 @@ $ docker-compose run all-web python3 manage.py migrate
 - command
 
 ```
-$ docker-compose run all-web python3 manage.py startapp [application name]
+$ docker-compose run coin-web pupenv run python manage.py startapp [application name]
 ```
 
 ### docker-compose
@@ -68,13 +68,13 @@ $ docker-compose run all-web python3 manage.py startapp [application name]
 - Run all test
 
 ```
-$ docker-compose run all-web python3 manage.py test
+$ docker-compose run coin-web pipenv run python manage.py test
 ```
 
 - Run application test
 
 ```
-$ docker-compose run [application name]-web python3 manage.py test [application name]
+$ docker-compose run [application name]-web pipenv run python manage.py test [application name]
 ```
 
 ## DB access
