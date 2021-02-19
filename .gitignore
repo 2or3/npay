@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# test result
+coin_test_result.txt
+payment_test_result.txt
