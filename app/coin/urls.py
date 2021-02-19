@@ -11,7 +11,7 @@ router = routers.DefaultRouter()
 router.register(r"coins", CoinViewSet)
 
 urlpatterns = [
-    path("<int:user_id>/coin", views.coin_me),
+    path("<int:user_id>/coin", views.users_coin),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

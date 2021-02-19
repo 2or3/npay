@@ -11,7 +11,7 @@ from coin.serializers import CoinSerializer
 
 @api_view(["GET", "PUT"])
 @parser_classes([JSONParser])
-def coin_me(request, user_id):
+def users_coin(request, user_id):
     """
     Get coin balance and modify coin.
     """
