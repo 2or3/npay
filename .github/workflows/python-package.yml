@@ -31,8 +31,8 @@ jobs:
         if [ -f app/requirements.txt ]; then pip install -r app/requirements.txt; fi
     - name: Test django
       run: |
-        docker-compose run coin-web python3 manage.py test > coin_test_result.txt
-        docker-compose run payment-web python3 manage.py test > payment_test_result.txt
+        docker-compose run coin-web pipenv run python manage.py test > coin_test_result.txt
+        docker-compose run payment-web pipenv run python manage.py test > payment_test_result.txt
     - name: Archive test results artifacts
       uses: actions/upload-artifact@v2
       with:
