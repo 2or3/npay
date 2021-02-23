@@ -16,22 +16,28 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
+from django.views.generic.base import RedirectView
 from . import views
 
 import os
 
 app_list = os.getenv("APP_LIST", "").split(",")
+api_version = "v1"
 
 urlpatterns = [
-    path("", views.api_redirect),
+    path("", RedirectView.as_view(url=f"/api/{api_version}/")),
     path("admin/", admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
+    path(f'api/{api_version}/rest-auth/', include('rest_auth.urls')),
+    path(f'api/{api_version}/rest-auth/registration/',
+         include('rest_auth.registration.urls')),
 ]
 
 if "coin" in app_list:
     from coin.urls import router as coin_router
 
-    urlpatterns.extend([url(r"^api/v1/", include(coin_router.urls))])
-    urlpatterns.extend([path("api/v1/", include("coin.urls"))])
+    urlpatterns.extend([url(rf"^api/{api_version}/", include(coin_router.urls))])
+    urlpatterns.extend([path(f"api/{api_version}/", include("coin.urls"))])
 
 if "payment" in app_list:
     from payment.urls import router as payment_router
