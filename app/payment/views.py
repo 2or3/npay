@@ -15,6 +15,7 @@ def users_payments(request, user_id):
     """
     return Response(Transactions.objects.all())
 
+
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Transactions.objects.all()
     serializer_class = PaymentSerializer
