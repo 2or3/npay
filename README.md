@@ -58,7 +58,7 @@ $ docker-compose run coin-web pupenv run python manage.py startapp [application 
     ports:
       - "8099:8000"         # Describe unused port for other application. Container port have to be 8000.
     environment:
-      APP_LIST: "payment"   # [application name]
+      APP_LIST: "payment"   # [application name]. Separated by comma.
     depends_on:
       - db
 

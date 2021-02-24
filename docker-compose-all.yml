@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASS}
+  web:
+    extends:
+      file: parent.yml
+      service: web
+    volumes:
+      - ./app/coin:/code/coin
+      - ./app/payment:/code/payment
+    ports:
+      - "8000:8000"
+    environment:
+      APP_LIST: "payment,coin"
+    depends_on:
+      - db
+
