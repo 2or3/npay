@@ -1,21 +1,21 @@
-version: '3'
+version: '3.4'
 
 services:
   db:
     image: postgres
     environment:
       POSTGRES_PASSWORD: ${DB_PASS}
-  web:
-    extends:
-      file: parent.yml
-      service: web
+  coin-web:
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    command: pipenv run python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./app/coin:/code/coin
-      - ./app/payment:/code/payment
+      - ./app/:/code/
     ports:
       - "8000:8000"
     environment:
-      APP_LIST: "payment,coin"
+      DB_PASS: ${DB_PASS}
+      APP_LIST: "coin"
     depends_on:
       - db
-

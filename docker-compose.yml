@@ -1,4 +1,18 @@
-version: '3'
+version: '3.4'
+
+x-build: &web-build
+  context: .
+  dockerfile: ./app/Dockerfile
+
+x-command: &web-command
+  pipenv run python manage.py runserver 0.0.0.0:8000
+
+x-volumes:
+  - &web-config ./app/config:/code/config
+  - &web-manage ./app/manage.py:/code/manage.py
+
+x-environment: &web-env
+  DB_PASS: ${DB_PASS}
 
 services:
   db:
@@ -6,27 +20,30 @@ services:
     environment:
       POSTGRES_PASSWORD: ${DB_PASS}
   coin-web:
-    extends:
-      file: parent.yml
-      service: web
+    build: *web-build
+    command: *web-command
     volumes:
+      - *web-config
+      - *web-manage
       - ./app/coin:/code/coin
     ports:
       - "8000:8000"
     environment:
+      <<: *web-env
       APP_LIST: "coin"
     depends_on:
       - db
   payment-web:
-    extends:
-      file: parent.yml
-      service: web
+    build: *web-build
+    command: *web-command
     volumes:
+      - *web-config
+      - *web-manage
       - ./app/payment:/code/payment
     ports:
       - "8001:8000"
     environment:
+      <<: *web-env
       APP_LIST: "payment"
     depends_on:
       - db
-
