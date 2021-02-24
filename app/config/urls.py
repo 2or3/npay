@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
 from django.views.generic.base import RedirectView
-from . import views
 
 import os
 
@@ -30,7 +29,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path(f'api/{api_version}/rest-auth/', include('rest_auth.urls')),
     path(f'api/{api_version}/rest-auth/registration/',
-         include('rest_auth.registration.urls')),
+        include('rest_auth.registration.urls')),
 ]
 
 if "coin" in app_list:
