@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 app_list = os.getenv("APP_LIST", "").split(",")
 INSTALLED_APPS = [
-    "django.contrib.admin",
+    # "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     "rest_auth.registration",
 ]
 INSTALLED_APPS.extend(app_list)
+
+if "users" in app_list:
+    AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -88,7 +91,7 @@ DATABASES = {
         "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": os.environ["DB_PASS"],
-        "HOST": "db",
+        "HOST": os.environ["DB_HOST"],
         "PORT": 5432,
     }
 }

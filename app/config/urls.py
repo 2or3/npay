@@ -25,7 +25,7 @@ api_version = "v1"
 
 urlpatterns = [
     path("", RedirectView.as_view(url=f"/api/{api_version}/")),
-    path("admin/", admin.site.urls),
+    # path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
     path(f"api/{api_version}/rest-auth/", include("rest_auth.urls")),
     path(f"api/{api_version}/rest-auth/registration/", include("rest_auth.registration.urls")),
