@@ -5,7 +5,7 @@ services:
     image: postgres
     environment:
       POSTGRES_PASSWORD: ${DB_PASS}
-  coin-web:
+  web:
     build:
       context: .
       dockerfile: ./app/Dockerfile
@@ -16,6 +16,7 @@ services:
       - "8000:8000"
     environment:
       DB_PASS: ${DB_PASS}
-      APP_LIST: "coin"
+      DB_HOST: db
+      APP_LIST: ${APP_LIST}
     depends_on:
       - db

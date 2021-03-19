@@ -13,6 +13,7 @@ x-volumes:
 
 x-environment: &web-env
   DB_PASS: ${DB_PASS}
+  DB_HOST: db
 
 services:
   db:
@@ -45,5 +46,19 @@ services:
     environment:
       <<: *web-env
       APP_LIST: "payment"
+    depends_on:
+      - db
+  users-web:
+    build: *web-build
+    command: *web-command
+    volumes:
+      - *web-config
+      - *web-manage
+      - ./app/users:/code/users
+    ports:
+      - "8002:8000"
+    environment:
+      <<: *web-env
+      APP_LIST: "users"
     depends_on:
       - db
