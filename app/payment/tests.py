@@ -26,20 +26,18 @@ class PaymentModelTests(TestCase):
         result = Transactions.objects.charge(self.user_id, add_coin_value)
         self.assertFalse(result)
 
-    def test_update_payment(self):
-        """
-        put payment('transaction', 'amount') would returns payment by transaction.
-        """
-        return
-
     def test_show_payment(self):
         """
-        get payment('transaction') would returns payment by transaction.
+        get payment('user', 'transaction') would returns payment by transaction.
         """
-        return
+        transaction_id = 1
+        result = Transactions.objects.get_charge(self.user_id, transaction_id)
+        self.assertEqual(result.amount, 1000)
 
     def test_list_payment(self):
         """
         list_payment('user') would returns all payment list for user.
         """
-        return
+        result = Transactions.objects.list_charge(self.user_id)
+        self.assertCountEqual(result, [{"amount": 1000}])
+        self.assertEqual(result, [{"amount": 1000}])
