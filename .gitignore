@@ -134,3 +134,5 @@ payment_test_result.txt
 
 Pipfile
 app/logfile
+
+.DS_Store
