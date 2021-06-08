@@ -1,6 +1,7 @@
 from django.db import models
 from attrdict import AttrDict
 
+
 # Create your models here.
 class TransactionManager(models.Manager):
     def charge(self, user_id, amount):
@@ -10,7 +11,7 @@ class TransactionManager(models.Manager):
         return True
 
     def get_charge(self, user_id, transaction_id):
-        return AttrDict({'amount': 1000})
+        return AttrDict({"amount": 1000})
 
     def list_charge(self, user_id):
         return [AttrDict({"amount": 1000})]

@@ -1,7 +1,8 @@
 from .models import User, Department
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
-from django.utils.translation import gettext, gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
+
 
 # Register your models here.
 @admin.register(Department)
