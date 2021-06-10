@@ -1,10 +1,19 @@
 from django.db import models
 from attrdict import AttrDict
+from django.conf import settings
+
+import requests
 
 
 # Create your models here.
 class TransactionManager(models.Manager):
     def charge(self, user_id, amount):
+        url = f"{settings.COIN_BASE_URL}"
+        payload = {
+            "user_id": user_id,
+            "amount": amount
+        }
+        r = requests.put(url, data=payload)
         if amount > 1000:
             return False
 

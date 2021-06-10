@@ -7,3 +7,5 @@ COPY ./app/Pipfile.lock /code/
 RUN /usr/local/bin/python -m pip install --upgrade pip
 RUN /usr/local/bin/python -m pip install pipenv
 RUN pipenv install
+
+COPY ./app/.env /code/
