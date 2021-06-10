@@ -9,11 +9,8 @@ import requests
 class TransactionManager(models.Manager):
     def charge(self, user_id, amount):
         url = f"{settings.COIN_BASE_URL}"
-        payload = {
-            "user_id": user_id,
-            "amount": amount
-        }
-        r = requests.put(url, data=payload)
+        payload = {"user_id": user_id, "amount": amount}
+        requests.put(url, data=payload)
         if amount > 1000:
             return False
 

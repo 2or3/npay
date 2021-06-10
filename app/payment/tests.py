@@ -17,7 +17,7 @@ class PaymentModelTests(TestCase):
         self.user_id = "1234567890"
         return
 
-    @mock.patch('payment.models.requests.put', mock.MagicMock(return_value=mock_res))
+    @mock.patch("payment.models.requests.put", mock.MagicMock(return_value=mock_res))
     def test_create_payment(self):
         """
         post payment('user', 'amount') would returns true if succeeded charge.
@@ -26,7 +26,7 @@ class PaymentModelTests(TestCase):
         result = Transactions.objects.charge(self.user_id, add_coin_value)
         self.assertTrue(result)
 
-    @mock.patch('payment.models.requests.put', mock.MagicMock(return_value=mock_res))
+    @mock.patch("payment.models.requests.put", mock.MagicMock(return_value=mock_res))
     def test_create_payment_with_over_amount(self):
         """
         post payment('user', 'amount') would returns false with over charge.
