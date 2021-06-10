@@ -1,6 +1,13 @@
 from django.test import TestCase
 
 from .models import Transactions
+from unittest import mock
+
+import requests
+
+mock_res = requests.Response()
+mock_res.status_code = 200
+
 
 # Create your tests here.
 class PaymentModelTests(TestCase):
@@ -10,6 +17,7 @@ class PaymentModelTests(TestCase):
         self.user_id = "1234567890"
         return
 
+    @mock.patch('payment.models.requests.put', mock.MagicMock(return_value=mock_res))
     def test_create_payment(self):
         """
         post payment('user', 'amount') would returns true if succeeded charge.
@@ -18,6 +26,7 @@ class PaymentModelTests(TestCase):
         result = Transactions.objects.charge(self.user_id, add_coin_value)
         self.assertTrue(result)
 
+    @mock.patch('payment.models.requests.put', mock.MagicMock(return_value=mock_res))
     def test_create_payment_with_over_amount(self):
         """
         post payment('user', 'amount') would returns false with over charge.
