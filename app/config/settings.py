@@ -23,8 +23,7 @@ env_file = str(ENV_BASE_DIR.path(".env"))
 env.read_env(env_file)
 
 # .env
-COIN_BASE_URL = env("COIN_BASE_URL")
-PAYMENT_BASE_URL = env("PAYMENT_BASE_URL")
+BASE_URL = env("BASE_URL")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
