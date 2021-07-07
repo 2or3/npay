@@ -7,11 +7,24 @@ import requests
 
 # Create your models here.
 class TransactionManager(models.Manager):
+    COIN_RESOURCE = "coins"
+    USERS_COIN_RESOURCE = "coin"
+
     def charge(self, user_id, amount):
-        url = f"{settings.COIN_BASE_URL}"
+        get_url = f"{settings.BASE_URL}/{user_id}/{self.USERS_COIN_RESOURCE}"
+        put_url = f"{settings.BASE_URL}{self.COIN_RESOURCE}"
+
+        # Get Coin
+        res = requests.get(get_url)
+
+        if int(res.json_data) < amount:
+            return False
+
+        # Update coin
         payload = {"user_id": user_id, "amount": amount}
-        requests.put(url, data=payload)
-        if amount > 1000:
+        res = requests.put(put_url, data=payload)
+
+        if res.status_code != 200:
             return False
 
         return True
