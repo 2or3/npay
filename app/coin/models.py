@@ -18,7 +18,7 @@ class CoinManager(models.Manager):
             Coin.objects.update_or_create(user_id=user_id, defaults={"amount": post_amount})
 
             result = Coin.objects.get_queryset().filter(user_id=user_id)
-        except IntegrityError as e:
+        except IntegrityError:
             raise CoinEntityIntegrityError
 
         if not result:
