@@ -1,6 +1,7 @@
 from django.test import TestCase
-
+from .exception import CoinNoDataError
 from .models import Coin
+
 
 # Create your tests here.
 class CoinModelTests(TestCase):
@@ -34,16 +35,16 @@ class CoinModelTests(TestCase):
         calculate() with exceeded minus amount returns False if negative value exceeded coin amount.
         """
         add_coin_value = -1000
-        after_amount = Coin.objects.calculate(self.user_id, add_coin_value)
-        self.assertFalse(after_amount)
+        with self.assertRaises(CoinNoDataError):
+            Coin.objects.calculate(self.user_id, add_coin_value)
 
     def test_calculate_with_not_exist_user_id(self):
         """
-        calculate() returns False if  no exist user_id.
+        calculate() returns False if no exist user_id.
         """
         add_coin_value = 100
-        after_amount = Coin.objects.calculate(self.not_exist_user_id, add_coin_value)
-        self.assertFalse(after_amount)
+        with self.assertRaises(CoinNoDataError):
+            Coin.objects.calculate(self.not_exist_user_id, add_coin_value)
 
     def test_get_amount_with_user_id(self):
         """
@@ -57,5 +58,5 @@ class CoinModelTests(TestCase):
         """
         get_amount() returns false if no exist user_id.
         """
-        amount = Coin.objects.get_amount(self.not_exist_user_id)
-        self.assertEqual(False, amount)
+        with self.assertRaises(CoinNoDataError):
+            Coin.objects.get_amount(self.not_exist_user_id)

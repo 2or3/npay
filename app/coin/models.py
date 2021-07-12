@@ -1,4 +1,5 @@
 from django.db import models, IntegrityError
+from .exception import CoinNoDataError, CoinEntityIntegrityError, CoinNoDataByUserError
 
 
 # Create your models here.
@@ -7,7 +8,7 @@ class CoinManager(models.Manager):
         try:
             result = Coin.objects.get_queryset().filter(user_id=user_id)
             if len(result) == 0:
-                return False
+                raise CoinNoDataByUserError
 
             pre_amount = result[0].amount
 
@@ -18,11 +19,10 @@ class CoinManager(models.Manager):
 
             result = Coin.objects.get_queryset().filter(user_id=user_id)
         except IntegrityError as e:
-            print(e)
-            return False
+            raise CoinEntityIntegrityError
 
         if not result:
-            return False
+            raise CoinNoDataError
 
         return result[0].amount
 
@@ -30,7 +30,7 @@ class CoinManager(models.Manager):
         result = Coin.objects.get_queryset().filter(user_id=user_id)
 
         if not result:
-            return False
+            raise CoinNoDataError
 
         return result[0].amount
 
