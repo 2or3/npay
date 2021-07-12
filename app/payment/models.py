@@ -16,6 +16,8 @@ class TransactionManager(models.Manager):
 
         # Get Coin
         res = requests.get(get_url)
+        if res.status_code != 200:
+            return False
 
         if int(res.json_data) < amount:
             return False

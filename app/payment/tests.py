@@ -15,6 +15,8 @@ mock_get_res = requests.Response()
 mock_get_res.status_code = 200
 mock_get_res.json_data = 3000
 
+mock_get_ng_res = requests.Response()
+mock_get_ng_res.status_code = 400
 
 # Create your tests here.
 class PaymentModelTests(TestCase):
@@ -34,13 +36,32 @@ class PaymentModelTests(TestCase):
         result = Transactions.objects.charge(self.user_id, add_coin_value)
         self.assertTrue(result)
 
-    @mock.patch("payment.models.requests.put", mock.MagicMock(return_value=mock_ng_res))
     @mock.patch("payment.models.requests.get", mock.MagicMock(return_value=mock_get_res))
     def test_create_payment_with_over_amount(self):
         """
         post payment('user', 'amount') would returns false with over charge.
         """
         add_coin_value = 10000
+        result = Transactions.objects.charge(self.user_id, add_coin_value)
+        self.assertFalse(result)
+
+    @mock.patch("payment.models.requests.put", mock.MagicMock(return_value=mock_ng_res))
+    @mock.patch("payment.models.requests.get", mock.MagicMock(return_value=mock_get_ng_res))
+    def test_create_payment_with_file_get_coin(self):
+        """
+        post payment('user', 'amount') would returns false with over charge.
+        """
+        add_coin_value = 100
+        result = Transactions.objects.charge(self.user_id, add_coin_value)
+        self.assertFalse(result)
+
+    @mock.patch("payment.models.requests.put", mock.MagicMock(return_value=mock_ng_res))
+    @mock.patch("payment.models.requests.get", mock.MagicMock(return_value=mock_get_res))
+    def test_create_payment_with_file_put_coin(self):
+        """
+        post payment('user', 'amount') would returns false with over charge.
+        """
+        add_coin_value = 100
         result = Transactions.objects.charge(self.user_id, add_coin_value)
         self.assertFalse(result)
 
