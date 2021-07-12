@@ -1,6 +1,7 @@
 from django.db import models
 from attrdict import AttrDict
 from django.conf import settings
+from .exception import CoinAPIRequestError
 
 import requests
 
@@ -17,7 +18,7 @@ class TransactionManager(models.Manager):
         # Get Coin
         res = requests.get(get_url)
         if res.status_code != 200:
-            return False
+            raise CoinAPIRequestError
 
         if int(res.json_data) < amount:
             return False
@@ -27,7 +28,7 @@ class TransactionManager(models.Manager):
         res = requests.put(put_url, data=payload)
 
         if res.status_code != 200:
-            return False
+            raise CoinAPIRequestError
 
         return True
 

@@ -1,6 +1,7 @@
 from django.test import TestCase
 
 from .models import Transactions
+from .exception import CoinAPIRequestError
 from unittest import mock
 
 import requests
@@ -41,6 +42,7 @@ class PaymentModelTests(TestCase):
         """
         post payment('user', 'amount') would returns false with over charge.
         """
+
         add_coin_value = 10000
         result = Transactions.objects.charge(self.user_id, add_coin_value)
         self.assertFalse(result)
@@ -49,21 +51,21 @@ class PaymentModelTests(TestCase):
     @mock.patch("payment.models.requests.get", mock.MagicMock(return_value=mock_get_ng_res))
     def test_create_payment_with_file_get_coin(self):
         """
-        post payment('user', 'amount') would returns false with over charge.
+        post payment('user', 'amount') would returns false if coin get returned ng.
         """
         add_coin_value = 100
-        result = Transactions.objects.charge(self.user_id, add_coin_value)
-        self.assertFalse(result)
+        with self.assertRaises(CoinAPIRequestError):
+            Transactions.objects.charge(self.user_id, add_coin_value)
 
     @mock.patch("payment.models.requests.put", mock.MagicMock(return_value=mock_ng_res))
     @mock.patch("payment.models.requests.get", mock.MagicMock(return_value=mock_get_res))
     def test_create_payment_with_file_put_coin(self):
         """
-        post payment('user', 'amount') would returns false with over charge.
+        post payment('user', 'amount') would returns false if coin put returned ng.
         """
         add_coin_value = 100
-        result = Transactions.objects.charge(self.user_id, add_coin_value)
-        self.assertFalse(result)
+        with self.assertRaises(CoinAPIRequestError):
+            Transactions.objects.charge(self.user_id, add_coin_value)
 
     def test_show_payment(self):
         """
