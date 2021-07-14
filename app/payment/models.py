@@ -20,7 +20,7 @@ class TransactionManager(models.Manager):
         if res.status_code != 200:
             raise CoinAPIRequestError
 
-        if int(res.json_data) < amount:
+        if int(res.json["charge"]) < amount:
             return False
 
         # Update coin
@@ -33,10 +33,17 @@ class TransactionManager(models.Manager):
         return True
 
     def get_charge(self, user_id, transaction_id):
-        return AttrDict({"amount": 1000})
+        get_url = f"{settings.BASE_URL}/{user_id}/{self.USERS_COIN_RESOURCE}"
+
+        # Get Coin
+        res = requests.get(get_url)
+        if res.status_code != 200:
+            raise CoinAPIRequestError
+
+        return AttrDict({"amount": int(res.json["charge"])})
 
     def list_charge(self, user_id):
-        return [AttrDict({"amount": 1000})]
+        return [AttrDict({"amount": 3000})]
 
 
 class Transactions(models.Model):

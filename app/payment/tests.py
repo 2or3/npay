@@ -14,7 +14,7 @@ mock_ng_res.status_code = 400
 
 mock_get_res = requests.Response()
 mock_get_res.status_code = 200
-mock_get_res.json_data = 3000
+mock_get_res.json = {"charge": 3000}
 
 mock_get_ng_res = requests.Response()
 mock_get_ng_res.status_code = 400
@@ -67,18 +67,19 @@ class PaymentModelTests(TestCase):
         with self.assertRaises(CoinAPIRequestError):
             Transactions.objects.charge(self.user_id, add_coin_value)
 
+    @mock.patch("payment.models.requests.get", mock.MagicMock(return_value=mock_get_res))
     def test_show_payment(self):
         """
         get payment('user', 'transaction') would returns payment by transaction.
         """
         transaction_id = 1
         result = Transactions.objects.get_charge(self.user_id, transaction_id)
-        self.assertEqual(result.amount, 1000)
+        self.assertEqual(result.amount, 3000)
 
     def test_list_payment(self):
         """
         list_payment('user') would returns all payment list for user.
         """
         result = Transactions.objects.list_charge(self.user_id)
-        self.assertCountEqual(result, [{"amount": 1000}])
-        self.assertEqual(result, [{"amount": 1000}])
+        self.assertCountEqual(result, [{"amount": 3000}])
+        self.assertEqual(result, [{"amount": 3000}])
