@@ -30,7 +30,7 @@ class CoinManager(models.Manager):
         result = Coin.objects.get_queryset().filter(user_id=user_id)
 
         if not result:
-            raise CoinNoDataError
+            raise CoinNoDataByUserError
 
         return result[0].amount
 
