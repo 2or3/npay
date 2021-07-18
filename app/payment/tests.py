@@ -19,6 +19,10 @@ mock_get_res.json = {"charge": 3000}
 mock_get_ng_res = requests.Response()
 mock_get_ng_res.status_code = 400
 
+mock_list_res = requests.Response()
+mock_list_res.status_code = 200
+mock_list_res.json = [{"charge": 3000}]
+
 # Create your tests here.
 class PaymentModelTests(TestCase):
     fixtures = ["fixture1"]
@@ -76,6 +80,7 @@ class PaymentModelTests(TestCase):
         result = Transactions.objects.get_charge(self.user_id, transaction_id)
         self.assertEqual(result.amount, 3000)
 
+    @mock.patch("payment.models.requests.get", mock.MagicMock(return_value=mock_list_res))
     def test_list_payment(self):
         """
         list_payment('user') would returns all payment list for user.

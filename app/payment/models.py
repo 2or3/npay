@@ -43,7 +43,14 @@ class TransactionManager(models.Manager):
         return AttrDict({"amount": int(res.json["charge"])})
 
     def list_charge(self, user_id):
-        return [AttrDict({"amount": 3000})]
+        get_url = f"{settings.BASE_URL}/{self.COIN_RESOURCE}"
+
+        # List Coin
+        res = requests.get(get_url)
+        if res.status_code != 200:
+            raise CoinAPIRequestError
+
+        return list(map(lambda x: {"amount": x["charge"]}, res.json))
 
 
 class Transactions(models.Model):
