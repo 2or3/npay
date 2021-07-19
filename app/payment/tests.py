@@ -14,6 +14,7 @@ class MockResponse:
     def json(self):
         return self.json_data
 
+
 # Create your tests here.
 class PaymentModelTests(TestCase):
     fixtures = ["fixture1"]
