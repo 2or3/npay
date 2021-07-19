@@ -1,4 +1,3 @@
-import json
 from django.db import models
 from attrdict import AttrDict
 from django.conf import settings
