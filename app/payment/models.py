@@ -1,3 +1,4 @@
+import json
 from django.db import models
 from attrdict import AttrDict
 from django.conf import settings
@@ -20,7 +21,7 @@ class TransactionManager(models.Manager):
         if res.status_code != 200:
             raise CoinAPIRequestError
 
-        if int(res.json["charge"]) < amount:
+        if int(res.json()) < amount:
             return False
 
         # Update coin
@@ -40,7 +41,8 @@ class TransactionManager(models.Manager):
         if res.status_code != 200:
             raise CoinAPIRequestError
 
-        return AttrDict({"amount": int(res.json["charge"])})
+        json_res = res.json()
+        return AttrDict({"amount": int(json_res)})
 
     def list_charge(self, user_id):
         get_url = f"{settings.BASE_URL}/{self.COIN_RESOURCE}"
@@ -50,7 +52,8 @@ class TransactionManager(models.Manager):
         if res.status_code != 200:
             raise CoinAPIRequestError
 
-        return list(map(lambda x: {"amount": x["charge"]}, res.json))
+        json_res = res.json()
+        return list(map(lambda x: {"amount": x["charge"]}, json_res))
 
 
 class Transactions(models.Model):

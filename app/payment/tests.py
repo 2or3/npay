@@ -4,28 +4,25 @@ from .models import Transactions
 from .exception import CoinAPIRequestError
 from unittest import mock
 
-import requests
 
-mock_res = requests.Response()
-mock_res.status_code = 200
+# Define mock response class.
+class MockResponse:
+    def __init__(self, json_data, status_code):
+        self.json_data = json_data
+        self.status_code = status_code
 
-mock_ng_res = requests.Response()
-mock_ng_res.status_code = 400
-
-mock_get_res = requests.Response()
-mock_get_res.status_code = 200
-mock_get_res.json = {"charge": 3000}
-
-mock_get_ng_res = requests.Response()
-mock_get_ng_res.status_code = 400
-
-mock_list_res = requests.Response()
-mock_list_res.status_code = 200
-mock_list_res.json = [{"charge": 3000}]
+    def json(self):
+        return self.json_data
 
 # Create your tests here.
 class PaymentModelTests(TestCase):
     fixtures = ["fixture1"]
+
+    mock_res = MockResponse("", 200)
+    mock_ng_res = MockResponse("", 400)
+    mock_get_res = MockResponse("3000", 200)
+    mock_get_ng_res = MockResponse("", 400)
+    mock_list_res = MockResponse([{"charge": 3000}], 200)
 
     def setUp(self):
         self.user_id = "1234567890"
