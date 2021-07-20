@@ -3,6 +3,9 @@
 
 # 2or3-pay
 
+## Architecture
+![](image/architecture.drawio.svg)
+
 ## Build
 1. Copy .env from .env.template
 
