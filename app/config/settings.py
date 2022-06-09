@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "rest_auth",
     "rest_auth.registration",
+    "rest_framework.authtoken",
 ]
 INSTALLED_APPS.extend(app_list)
 
@@ -146,3 +147,11 @@ STATIC_URL = "/static/"
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 SITE_ID = 1
+
+# EMAIL
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = True

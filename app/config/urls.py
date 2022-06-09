@@ -15,7 +15,7 @@ Including another URLconf
 """
 # from django.contrib import admin
 from django.urls import path
-from django.conf.urls import url, include
+from django.conf.urls import include
 from django.views.generic.base import RedirectView
 
 import os
@@ -34,10 +34,10 @@ urlpatterns = [
 if "coin" in app_list:
     from coin.urls import router as coin_router
 
-    urlpatterns.extend([url(rf"^api/{api_version}/", include(coin_router.urls))])
+    urlpatterns.extend([path(rf"api/{api_version}/", include(coin_router.urls))])
     urlpatterns.extend([path(f"api/{api_version}/", include("coin.urls"))])
 
 if "payment" in app_list:
     from payment.urls import router as payment_router
 
-    urlpatterns.extend([url(r"^api/v1/", include(payment_router.urls))])
+    urlpatterns.extend([path(r"api/v1/", include(payment_router.urls))])
