@@ -34,15 +34,13 @@ jobs:
         echo BASE_URL=test >> app/.env
     - name: Test django
       run: |
-        docker-compose run coin-web pipenv run python manage.py test > coin_test_result.txt
-        docker-compose run payment-web pipenv run python manage.py test > payment_test_result.txt
+        docker-compose run web pipenv run python manage.py test > test_result.txt
     - name: Archive test results artifacts
       uses: actions/upload-artifact@v2
       with:
         name: test-results
         path: |
-          coin_test_result.txt
-          payment_test_result.txt
+          test_result.txt
     - name: Lint with black
       run: |
         black .
